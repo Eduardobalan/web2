@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -22,10 +23,13 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+
     @GetMapping
     @ResponseBody
-    public ResponseEntity<?> buscar() {
-        return new ResponseEntity(clienteService.buscarTodos(), HttpStatus.OK);
+    public ResponseEntity<?> buscar(@RequestParam(name = "name", required = false) String name,
+                                    @RequestParam(name = "idade", required = false) Long idade,
+                                    @RequestParam(name = "cpf", required = false) String cpf) {
+        return new ResponseEntity(clienteService.buscarTodos(name, idade, cpf), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -52,6 +56,6 @@ public class ClienteController {
     public ResponseEntity<?> alterar(@PathVariable("id") Long id,
                                      @RequestBody Cliente cliente) {
 
-        return new ResponseEntity(clienteService.alterar(id, cliente), HttpStatus.ACCEPTED);
+        return new ResponseEntity(clienteService.alterar(cliente), HttpStatus.ACCEPTED);
     }
 }

@@ -1,38 +1,32 @@
 package br.ufms.cpcx.balan.repository;
 
 import br.ufms.cpcx.balan.entity.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class ClienteRepository {
-    HashMap<Long,Cliente> DB = new HashMap<>();
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    public List<Cliente> findAll (){
-        List<Cliente> retorno = new ArrayList<>();
+    //Consulta por nome do método
+    List<Cliente> findByNameContains(String name);
 
-        DB.forEach((aLong, cliente) -> retorno.add(cliente));
-        return retorno;
-    }
+    List<Cliente> findByIdIn(List<Long> ids);
 
-    public Cliente save(Cliente cliente){
-        DB.put(cliente.getId(), cliente);
-        return cliente;
-    }
+    boolean existsByCpf(String cpf);
 
-    public void delete(Long id) {
-        DB.remove(id);
-    }
+    boolean existsByCpfAndIdade(String cpf, Long id);
 
-    public Cliente alterar(Long id, Cliente cliente) {
-        this.delete(id);
-        return this.save(cliente);
-    }
+    boolean existsByCpfOrName(String cpf, String name);
 
-    public Object findById(Long id) {
-        return DB.get(id);
-    }
+    //Consulta com HQL
+    @Query("SELECT c FROM Cliente c where c.name = :name and c.idade = :idade")
+    List<Cliente> consultaHql(@Param("name") String name, @Param("idade") Long idade);
+
+    //Consulta com SQL
+    @Query(nativeQuery = true, value = "SELECT CLI_NAME FROM TB_CLIENTE where CLI_NAME LIKE :name")
+    List<Cliente> consultaSql(@Param("name") String name);
 }
