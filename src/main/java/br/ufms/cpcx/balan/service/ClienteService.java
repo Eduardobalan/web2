@@ -19,30 +19,12 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public List<Cliente> buscarTodos(String name, Long idade, String cpf) {
-        Cliente cliente = new Cliente();
-        cliente.setName(name);
-        cliente.setIdade(idade);
-        cliente.setCpf(cpf);
-
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
-                .withIgnoreCase()
-                .withIgnorePaths("idade");
-
-        Example example = Example.of(cliente, exampleMatcher);
-
-        return clienteRepository.findAll(example);
-    }
-
     public Object buscarPorId(Long id) {
         return clienteRepository.findById(id);
     }
 
     public Cliente salvar(Cliente cliente) {
-        if (cliente.getIdade() > 18L) {
             return clienteRepository.save(cliente);
-        }
-        throw new RuntimeException("Idade", null);
     }
 
     public Cliente alterar(Cliente cliente) {

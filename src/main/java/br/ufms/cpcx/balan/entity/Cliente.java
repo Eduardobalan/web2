@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_CLIENTE")
@@ -16,14 +17,20 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "CLI_NAME", length = 100)
+    @Column(name = "CLI_NAME", length = 256, nullable = false)
     private String name;
 
     @Column(name = "CLI_CPF", length = 14)
     private String cpf;
 
-    @Column(name = "CLI_IDADE")
-    private Long idade;
+    @Column(name = "CLI_DATA_NASCIMENTO")
+    private LocalDate dataNascimento;
+
+    public Cliente() {}
+
+    public Cliente(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -49,11 +56,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Long getIdade() {
-        return idade;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setIdade(Long idade) {
-        this.idade = idade;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

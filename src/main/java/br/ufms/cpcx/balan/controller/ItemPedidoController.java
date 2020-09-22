@@ -1,7 +1,7 @@
 package br.ufms.cpcx.balan.controller;
 
-import br.ufms.cpcx.balan.entity.Cliente;
-import br.ufms.cpcx.balan.service.ClienteService;
+import br.ufms.cpcx.balan.entity.ItemPedido;
+import br.ufms.cpcx.balan.service.ItemPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,46 +13,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/api/cliente")
-public class ClienteController {
+@RequestMapping("/api/itemPedido")
+public class ItemPedidoController {
 
     @Autowired
-    private ClienteService clienteService;
+    private ItemPedidoService itemPedidoService;
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<?> buscarTodo() {
-        return new ResponseEntity(clienteService.buscarTodos(), HttpStatus.OK);
+    public ResponseEntity<?> buscarTodos() {
+        return new ResponseEntity(itemPedidoService.buscarTodos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> buscarPorId(@PathVariable("id") Long id) {
-        return new ResponseEntity(clienteService.buscarPorId(id), HttpStatus.OK);
+        return new ResponseEntity(itemPedidoService.buscarPorId(id), HttpStatus.OK);
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> salvar(@RequestBody Cliente body) {
-        return new ResponseEntity(clienteService.salvar(body), HttpStatus.CREATED);
+    public ResponseEntity<?> salvar(@RequestBody ItemPedido body) {
+        return new ResponseEntity(itemPedidoService.salvar(body), HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
     @ResponseBody
     public ResponseEntity<?> deletar(@PathVariable("id") Long id) {
-        clienteService.deletar(id);
+        itemPedidoService.deletar(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("{id}")
     @ResponseBody
     public ResponseEntity<?> alterar(@PathVariable("id") Long id,
-                                     @RequestBody Cliente body) {
+                                     @RequestBody ItemPedido body) {
 
-        return new ResponseEntity(clienteService.alterar(body), HttpStatus.ACCEPTED);
+        return new ResponseEntity(itemPedidoService.alterar(body), HttpStatus.ACCEPTED);
     }
 }
