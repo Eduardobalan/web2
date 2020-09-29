@@ -1,5 +1,6 @@
 package br.ufms.cpcx.balan.repository;
 
+import br.ufms.cpcx.balan.dto.ProdutoDTO;
 import br.ufms.cpcx.balan.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,5 +1,10 @@
 package br.ufms.cpcx.balan.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +27,17 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "CLI_ID")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Cliente cliente;
+
+//    @ManyToOne
+//    @JoinColumn(name = "CLI_ID", updatable = false, insertable = false)
+////    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//    @JsonBackReference
+//    private Cliente cliente;
+//
+//    @Column(name = "CLI_ID")
+//    private Long clienteId;
 
     @Column(name = "PED_DATECOMPRA")
     private LocalDate dateCompra;

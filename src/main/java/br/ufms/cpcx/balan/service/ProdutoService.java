@@ -22,7 +22,7 @@ public class ProdutoService {
     }
 
     public Produto salvar(Produto produto) {
-            return produtoRepository.save(produto);
+        return produtoRepository.save(produto);
     }
 
     public Produto alterar(Produto produto) {
@@ -31,5 +31,9 @@ public class ProdutoService {
 
     public void deletar(Long id) {
         produtoRepository.deleteById(id);
+    }
+
+    public Object buscarClientePorProduto(Long id) {
+        return produtoRepository.buscarClientesPorProduto(id);
     }
 }

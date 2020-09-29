@@ -34,6 +34,12 @@ public class PedidoController {
         return new ResponseEntity(pedidoService.buscarPorId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/produto")
+    @ResponseBody
+    public ResponseEntity<?> buscarProdutosPorPedido(@PathVariable("id") Long id) {
+        return new ResponseEntity(pedidoService.buscarProdutosPorPedido(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> salvar(@RequestBody Pedido body) {

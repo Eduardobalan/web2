@@ -35,6 +35,18 @@ public class ClienteController {
         return new ResponseEntity(clienteService.buscarPorId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/pedido")
+    @ResponseBody
+    public ResponseEntity<?> buscarPedidosPorCliente(@PathVariable("id") Long id) {
+        return new ResponseEntity(clienteService.buscarPedidosPorCliente(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/produto")
+    @ResponseBody
+    public ResponseEntity<?> buscarProdutoPorCliente(@PathVariable("id") Long id) {
+        return new ResponseEntity(clienteService.buscarProdutoPorCliente(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> salvar(@RequestBody Cliente body) {

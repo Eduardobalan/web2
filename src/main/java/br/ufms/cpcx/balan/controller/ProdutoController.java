@@ -34,6 +34,12 @@ public class ProdutoController {
         return new ResponseEntity(produtoService.buscarPorId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/cliente")
+    @ResponseBody
+    public ResponseEntity<?> buscarClientePorProduto(@PathVariable("id") Long id) {
+        return new ResponseEntity(produtoService.buscarClientePorProduto(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> salvar(@RequestBody Produto body) {
