@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -27,6 +26,12 @@ public class ClienteController {
     @ResponseBody
     public ResponseEntity<?> buscarTodo() {
         return new ResponseEntity(clienteService.buscarTodos(), HttpStatus.OK);
+    }
+
+    @GetMapping("/optional")
+    @ResponseBody
+    public ResponseEntity<?> optionalTest() {
+        return new ResponseEntity(clienteService.optionalTest(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

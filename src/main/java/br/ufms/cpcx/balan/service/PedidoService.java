@@ -1,15 +1,15 @@
 package br.ufms.cpcx.balan.service;
 
-import br.ufms.cpcx.balan.entity.ItemPedido;
 import br.ufms.cpcx.balan.entity.Pedido;
-import br.ufms.cpcx.balan.entity.Produto;
+import br.ufms.cpcx.balan.enuns.EStatusPedido;
 import br.ufms.cpcx.balan.repository.ItemPedidoRepository;
 import br.ufms.cpcx.balan.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PedidoService {
@@ -25,7 +25,9 @@ public class PedidoService {
     }
 
     public Object buscarPorId(Long id) {
-        return pedidoRepository.findById(id);
+        Pedido pedido = pedidoRepository.findById(id).get();
+        pedido.setStatusNome(pedido.getStatus().getNome());
+        return pedido;
     }
 
     public Object buscarProdutosPorPedido(Long id) {
@@ -53,5 +55,16 @@ public class PedidoService {
 
     public void deletar(Long id) {
         pedidoRepository.deleteById(id);
+    }
+
+    public Map buscarStatusPedido(Long id) {
+        EStatusPedido statusPedido = pedidoRepository.buscarStatusPedido(id);
+        Map<String,String> retorno = new HashMap<>();
+
+        retorno.put("enum", statusPedido.toString());
+        retorno.put("status", statusPedido.getNome());
+        retorno.put("sigla", statusPedido.getSigla());
+
+        return retorno;
     }
 }

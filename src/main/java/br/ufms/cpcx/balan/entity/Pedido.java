@@ -1,21 +1,31 @@
 package br.ufms.cpcx.balan.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.ufms.cpcx.balan.enuns.EStatusPedido;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "TB_PEDIDO")
 public class Pedido {
@@ -29,6 +39,13 @@ public class Pedido {
     @JoinColumn(name = "CLI_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Cliente cliente;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PED_STATUS")
+    private EStatusPedido status;
+
+    @Transient
+    private String statusNome;
 
 //    @ManyToOne
 //    @JoinColumn(name = "CLI_ID", updatable = false, insertable = false)
@@ -47,44 +64,4 @@ public class Pedido {
 
     @Column(name = "PED_DESCONTO")
     private BigDecimal desconto;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public LocalDate getDateCompra() {
-        return dateCompra;
-    }
-
-    public void setDateCompra(LocalDate dateCompra) {
-        this.dateCompra = dateCompra;
-    }
-
-    public LocalDate getDateEntrega() {
-        return dateEntrega;
-    }
-
-    public void setDateEntrega(LocalDate dateEntrega) {
-        this.dateEntrega = dateEntrega;
-    }
-
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
 }
