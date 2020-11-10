@@ -1,6 +1,8 @@
 package br.ufms.cpcx.balan.entity;
 
+import br.ufms.cpcx.balan.enuns.EGenero;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "TB_CLIENTE")
+@Builder
 public class Cliente {
 
     @Id
@@ -39,6 +42,12 @@ public class Cliente {
 
     @Transient
     private Boolean realizouAlgumPedido;
+
+    @Transient
+    private Long idade;
+
+    @Transient
+    private EGenero genero;
 
     public Cliente(Long id) {
         this.id = id;
